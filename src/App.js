@@ -17,33 +17,59 @@ export default function App() {
      *    the "newsletter" checkbox, log "Thanks for signing
      *    up for our newsletter!" to the console.
      */
+    const [userData, userDataFunc] = React.useState(
+      {email: "", password: "", confirm: "", newsletter: false, logged: false}
+    )
+
+    function handleChange(event) {
+      console.log(userData)
+      userDataFunc(prevData => {
+        return {
+          ...prevData,
+          [event.target.name]: event.target.type== "checkbox" ? event.target.checked : event.target.value
+        }
+      })
+    }
+
     function handleSubmit(event) {
-        event.preventDefault()
+      event.preventDefault();
     }
     
     return (
         <div className="form-container">
-            <form className="form" onSubmit={handleSubmit}>
+            <form className="form" onSubmit={handleSubmit} action="#">
                 <input 
                     type="email" 
                     placeholder="Email address"
                     className="form--input"
+                    onChange={handleChange}
+                    name="email"
+                    value={userData.email}
                 />
                 <input 
                     type="password" 
                     placeholder="Password"
                     className="form--input"
+                    onChange={handleChange}
+                    name="password"
+                    value={userData.password}
                 />
                 <input 
                     type="password" 
                     placeholder="Confirm password"
                     className="form--input"
+                    onChange={handleChange}
+                    name="confirm"
+                    value={userData.confirm}
                 />
                 
                 <div className="form--marketing">
                     <input
                         id="okayToEmail"
                         type="checkbox"
+                        onChange={handleChange}
+                        name="newsletter"
+                        checked={userData.newsletter}
                     />
                     <label htmlFor="okayToEmail">I want to join the newsletter</label>
                 </div>
