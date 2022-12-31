@@ -18,21 +18,27 @@ export default function App() {
      *    up for our newsletter!" to the console.
      */
     const [userData, userDataFunc] = React.useState(
-      {email: "", password: "", confirm: "", newsletter: false, logged: false}
+      {email: "", password: "", confirm: "", newsletter: false}
     )
 
     function handleChange(event) {
-      console.log(userData)
-      userDataFunc(prevData => {
-        return {
-          ...prevData,
-          [event.target.name]: event.target.type== "checkbox" ? event.target.checked : event.target.value
-        }
-      })
+        console.log(userData)
+        userDataFunc(prevData => {
+            return {
+                ...prevData,
+                [event.target.name]: event.target.type==="checkbox" ? event.target.checked : event.target.value
+            }
+        })
     }
 
     function handleSubmit(event) {
-      event.preventDefault();
+        event.preventDefault()
+        userData.password===userData.confirm ?
+            userData.newsletter ? 
+                console.log("Thanks for signing up for our newsletter!") :
+                console.log("Successfully signed up")
+            :
+            console.log("passwords to not match")
     }
     
     return (
